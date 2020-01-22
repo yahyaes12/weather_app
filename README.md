@@ -1,2 +1,2 @@
 # weather_app
-weather app with js 
+weather app with js IR version 

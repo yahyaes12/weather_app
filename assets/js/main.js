@@ -6,10 +6,13 @@ $(document).ready(function () {
     ///////
 
     function feach(lat, long,cityname) {
-        const anywhere = 'https://cors-anywhere.herokuapp.com/';
-        fetch(`${anywhere}https://fcc-weather-api.glitch.me/api/current?lat=${lat}&lon=${long}`)
+        
+        fetch(`https://fcc-weather-api.glitch.me/api/current?lat=${lat}&lon=${long}`)
             .then(res => res.json())
             .then((data) => {
+                if(data.name == "Shuzenji"){
+                    feach(lat,long,cityname)
+                }else{
                 $("#cityname").text(cityname);
                 $("#temperatureavreg").text(Math.floor(data.main.temp))
 
@@ -29,9 +32,9 @@ $(document).ready(function () {
                 icons.set("Wind", Skycons.WIND);
                 icons.set("Fog", Skycons.FOG);
                 icons.play();
-
-                console.log(data);
-            }
+                
+                console.log(data.name);
+            }}
             )
             .catch(err => console.log(err)
             )
@@ -44,6 +47,7 @@ $(document).ready(function () {
         let long2 = parseFloat($(this).attr('long'));
         let cityname = $(this).attr('city');
         feach(lat2, long2,cityname)
+        
     });
 
     $(".mylocation").click(function (e) { 
@@ -57,6 +61,14 @@ $(document).ready(function () {
             }    
             )
         }
+    });
+    $(".respan").click(function (e) { 
+        $(".rescity").slideDown();
+        
+    });
+    $(".resitem").click(function (e) { 
+        $(".rescity").slideUp();
+        
     });
 });
 
